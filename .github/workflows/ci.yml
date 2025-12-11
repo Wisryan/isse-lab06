@@ -28,7 +28,7 @@ jobs:
         env:
           PYTHONPATH: ${{ github.workspace }}
         run: |
-          python -m pytest -q --cov=prediction_pipeline_demo --cov-report=term-missing --cov-fail-under=50
+          python -m pytest -q --cov=prediction_pipeline_demo --cov-report=term-missing --cov-fail-under=70
 
       # TODO: 增加一个步骤以运行 "demo pipeline end to end"
       # 目标是运行 prediction_pipeline_demo.py，使 CI 日志输出模型的 R^2 分数。
