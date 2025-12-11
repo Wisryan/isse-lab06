@@ -1,16 +1,14 @@
 name: CI
 
-runs-on: self-hosted
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
   push:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-
+    runs-on: self-hosted   # 若要用 GitHub 托管机，就改回 ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,10 +27,10 @@ jobs:
         env:
           PYTHONPATH: ${{ github.workspace }}
         run: |
-          python -m pytest -q --cov=prediction_pipeline_demo --cov-report=term-missing --cov-fail-under=70
+          python -m pytest -q --cov=prediction_pipeline_demo \
+                             --cov-report=term-missing \
+                             --cov-fail-under=70
 
-      # TODO: 增加一个步骤以运行 "demo pipeline end to end"
-      # 目标是运行 prediction_pipeline_demo.py，使 CI 日志输出模型的 R^2 分数。
       - name: Run demo pipeline end to end
         env:
           PYTHONPATH: ${{ github.workspace }}
