@@ -56,8 +56,10 @@ def feature_target_sample(housing_data_sample):
 
 def test_data_split_returns_four_parts(feature_target_sample):
     # TODO(1): 取消下一行的注释以获取拆分结果
-    # parts = data_split(*feature_target_sample)
+    parts = data_split(*feature_target_sample)
     # TODO(2): 增加断言，检测：
+    assert isinstance(parts, tuple)
+    assert len(parts) == 4
     #   - parts 是元组(tuple)
     #   - 元组有四个元素
     pass
@@ -65,11 +67,14 @@ def test_data_split_returns_four_parts(feature_target_sample):
 
 def test_end_to_end_train_and_eval(feature_target_sample):
     # TODO(3): 取消下面的注释以进行训练和评估
-    # X_train, X_test, y_train, y_test = data_split(*feature_target_sample)
-    # model = train_model(X_train, y_train)
-    # score = eval_model(X_test, y_test, model)
+    X_train, X_test, y_train, y_test = data_split(*feature_target_sample)
+    model = train_model(X_train, y_train)
+    score = eval_model(X_test, y_test, model)
     # TODO(4): 增加断言，检测：
+    
     #   - score 是浮点数
+    assert isinstance(score, float)
     #   - score 是有限的（不是 NaN 或 inf）
+    assert np.isfinite(score)
     pass
     
