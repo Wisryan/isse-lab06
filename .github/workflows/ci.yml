@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: self-hosted   # 若要用 GitHub 托管机，就改回 ubuntu-latest
+    runs-on: self-hosted   # 如需 GitHub 托管机改成 ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,6 +19,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
+        shell: powershell
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
@@ -26,13 +27,11 @@ jobs:
       - name: Run tests with coverage
         env:
           PYTHONPATH: ${{ github.workspace }}
-        run: |
-          python -m pytest -q --cov=prediction_pipeline_demo \
-                             --cov-report=term-missing \
-                             --cov-fail-under=70
+        shell: powershell
+        run: python -m pytest -q --cov=prediction_pipeline_demo --cov-report=term-missing --cov-fail-under=70
 
       - name: Run demo pipeline end to end
         env:
           PYTHONPATH: ${{ github.workspace }}
-        run: |
-          python prediction_pipeline_demo.py
+        shell: powershell
+        run: python prediction_pipeline_demo.py
